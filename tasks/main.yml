@@ -1,0 +1,3 @@
+---
+- include: lastpass-setup-rhel.yml
+  when: (ansible_os_family == "RedHat")

@@ -1,0 +1,29 @@
+---
+- name: Check for lpass in path
+  command: which lpass
+  ignore_errors: yes
+  register: lpass
+- name: Install lpass dependencies
+  sudo: yes
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+  - openssl
+  - libcurl
+  - libxml2
+  - pinentry
+  - xclip
+  - openssl-devel
+  - libxml2-devel
+  - libcurl-devel
+  when: lpass.rc != 0
+- name: Git lastpass-cli.
+  sudo: yes
+  git: repo=https://github.com/lastpass/lastpass-cli.git
+       dest=/usr/src/lastpass-cli force=yes version=0.8.1
+  when: lpass.rc != 0
+- name: install lpass
+  sudo: yes
+  command: make install chdir=/usr/src/lastpass-cli
+  when: lpass.rc != 0
