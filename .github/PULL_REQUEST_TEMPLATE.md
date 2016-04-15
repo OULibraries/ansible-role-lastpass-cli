@@ -1,4 +1,4 @@
-<!--- Replace this with the title of your PR -->
+<!--- Replace this with the title of your PR, or specify the title above and delete this line-->
 
 <!--- Replace this with a detailed description of your changes -->
 
