@@ -4,7 +4,7 @@
   ignore_errors: yes
   register: lpass
 - name: Install lpass dependencies
-  sudo: yes
+  become: true
   yum:
     name: "{{ item }}"
     state: present
@@ -19,11 +19,11 @@
   - libcurl-devel
   when: lpass.rc != 0
 - name: Git lastpass-cli.
-  sudo: yes
+  become: true
   git: repo=https://github.com/lastpass/lastpass-cli.git
        dest=/usr/src/lastpass-cli force=yes version=0.8.1
   when: lpass.rc != 0
 - name: install lpass
-  sudo: yes
+  become: true
   command: make install chdir=/usr/src/lastpass-cli
   when: lpass.rc != 0
